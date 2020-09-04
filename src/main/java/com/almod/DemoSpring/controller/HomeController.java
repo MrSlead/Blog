@@ -21,10 +21,4 @@ public class HomeController {
     public String homeTwo(){
         return "home";
     }
-
-    @GetMapping("/test")
-    public String test(){
-        return "loginDir/test";
-    }
-
 }
