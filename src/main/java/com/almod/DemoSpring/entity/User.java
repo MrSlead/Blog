@@ -2,14 +2,23 @@ package com.almod.DemoSpring.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class User
 {
     @Id
     private long id;
+
+    @NotBlank
+    @Size(min = 4, max = 30)
     private String username;
+
+    @NotBlank
+    @Size(min = 6, max = 80)
     private String password;
+
     public long getId() {
         return id;
     }

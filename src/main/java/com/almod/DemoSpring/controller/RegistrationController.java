@@ -33,9 +33,20 @@ public class RegistrationController {
         User userFromDb = userRepo.findByUsername(user.getUsername());
 
         if (userFromDb != null) {
-            model.addAttribute("message", "User exists!");
+            model.addAttribute("UsernameExistsError", "Username exists!");
             return "registration";
         }
+        /*if(user.getUsername().length() < 4 || user.getUsername().length() > 30){
+            model.addAttribute("UsernameLengthError",
+                    "The name must be longer than 4 characters and less than 30 characters.");
+            return "registration";
+        }
+        if(user.getPassword().length() < 6 || user.getPassword().length() > 80){
+            model.addAttribute("PasswordLengthError",
+                    "The password must be longer than 6 characters and less than 80 characters.");
+            return "registration";
+        }*/
+
         userRepo.save(user);
 
         return "redirect:/login";
