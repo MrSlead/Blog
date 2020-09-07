@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <div th:insert="parts/authentication :: links"></div>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <header th:insert="parts/header :: header"></header>
+
+    <div class="container mt-5">
+        <div th:each="post : ${posts}" class="alert alert-info mt-2">
+            <h3 th:text="${post.title}" />
+            <p th:text="${post.anons}" />
+            <a th:href="'/blog/' + ${post.id}">Open</a>
+        </div>
+    </div>
+</body>
+</html>

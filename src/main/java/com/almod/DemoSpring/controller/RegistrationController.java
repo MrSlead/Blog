@@ -2,6 +2,7 @@ package com.almod.DemoSpring.controller;
 
 import com.almod.DemoSpring.entity.User;
 import com.almod.DemoSpring.repo.UserRepo;
+import com.almod.DemoSpring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class RegistrationController {
     @Autowired
-    private UserRepo userRepo;
+    private UserService userService;
 
     @GetMapping("/login")
     public String login(){
@@ -30,7 +31,7 @@ public class RegistrationController {
 
     @PostMapping("registration")
     public String addUser(User user, Model model){
-        User userFromDb = userRepo.findByUsername(user.getUsername());
+        User userFromDb = userService.findByUsername(user.getUsername());
 
         if (userFromDb != null) {
             model.addAttribute("UsernameExistsError", "Username exists!");
@@ -47,7 +48,7 @@ public class RegistrationController {
             return "registration";
         }*/
 
-        userRepo.save(user);
+        userService.save(user);
 
         return "redirect:/login";
     }

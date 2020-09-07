@@ -34,7 +34,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter
 
         http
                 .csrf().disable()
-                .authorizeRequests().antMatchers( "/", "/home", "/registration", "/login").permitAll()
+                .authorizeRequests().antMatchers( "/", "/home", "/about", "/registration", "/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -49,8 +49,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/login_reg/**", "/main/**",
-                        "/css/**", "/js/**", "/images/icons/**", "/fonts/**", "/vendor/**", "/error", "/parts/**");
+                .antMatchers("/resources/**", "/static/**", "/login_reg/**", "/main/**", "/error/**");
     }
     /*
     @Bean
