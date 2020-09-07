@@ -49,7 +49,8 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/icons/**", "/fonts/**", "/vendor/**", "/error", "/parts/**");
+                .antMatchers("/resources/**", "/static/**", "/login_reg/**", "/main/**",
+                        "/css/**", "/js/**", "/images/icons/**", "/fonts/**", "/vendor/**", "/error", "/parts/**");
     }
     /*
     @Bean

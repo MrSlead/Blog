@@ -16,8 +16,8 @@ import java.security.Principal;
 public class HomeController {
 
     @GetMapping("/home")
-    public String home(){
-        return "home";
+    public String home(Model model){
+        return "main";
     }
 
     @GetMapping(value = {"", "/"})
@@ -30,6 +30,6 @@ public class HomeController {
             model.addAttribute("authorization", "/logout");
             model.addAttribute("textAuth", "Logout");
         }*/
-        return "home";
+        return "main";
     }
 }
