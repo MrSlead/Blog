@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <div th:insert="parts/authentication :: links"></div>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header th:insert="parts/header :: header"></header>
+
+<div class="container mt-5">
+    <div th:each="post : ${posts}" class="alert alert-info mt-2">
+        <h1 th:text="${post.title}" />
+        <p th:text="${post.full_text}" />
+        <a th:href="'/blog/' + ${post.id} + '/edit'" class="btn btn-info">Edit</a><br>
+
+        <form th:action="'/blog/' + ${post.id} + '/remove'" method="post">
+            <button class="btn btn-warning" type="submit">Remove</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

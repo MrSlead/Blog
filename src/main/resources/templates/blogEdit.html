@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <div th:insert="parts/authentication :: links"></div>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header th:insert="parts/header :: header"></header>
+
+<div class="container mt-5 mb-5">
+    <h1>Edit post</h1>
+    <div th:each="post : ${posts}" class="alert alert-info mt-2">
+        <form method="post">
+            <input type="text" th:value="${post.title}" name="title" placeholder="Enter the title of the post" class="from-control"><br>
+            <input type="text" th:value="${post.anons}" name="anons" placeholder="Enter the anons of the post" class="from-control"><br>
+            <textarea name="full_text" th:text="${post.full_text}" placeholder="Enter the blog text" class="from-control"></textarea>
+            <button type="submit" class="btn btn-success">Update post</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
