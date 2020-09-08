@@ -1,4 +1,4 @@
-<div th:fragment="authentication (url, namePage, transition, nameAction, questionAction)"
+<div th:fragment="authentication (url, namePage, transition, nameAction, questionAction, isRepeatPassword)"
      xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="limiter">
         <div class="container-login100">
@@ -12,6 +12,7 @@
                         <p style="color: red; padding-top: 20px; font-size: 15px; font-weight: bold;" th:text="${UsernameExistsError}"/>
                         <p style="color: red; padding-top: 20px; font-size: 15px; font-weight: bold;" th:text="${PasswordLengthError}"/>
                         <p style="color: red; padding-top: 20px; font-size: 15px; font-weight: bold;" th:text="${UsernameLengthError}"/>
+                        <p style="color: red; padding-top: 20px; font-size: 15px; font-weight: bold;" th:text="${RepeatPasswordError}"/>
 					</span>
 
                     <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
@@ -19,13 +20,10 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Enter password">
-						<span class="btn-show-pass">
-							<i class="zmdi zmdi-eye"></i>
-						</span>
                         <input class="input100" type="password" name="password" placeholder="password">
                     </div>
 
-
+                    <div th:insert="parts/repeatPassword :: ${isRepeatPassword}"></div>
 
                     <div class="container-login100-form-btn">
                         <div class="wrap-login100-form-btn">

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class RegistrationController {
@@ -30,11 +31,15 @@ public class RegistrationController {
     }
 
     @PostMapping("registration")
-    public String addUser(User user, Model model){
+    public String addUser(User user, @RequestParam String repeat_password, Model model){
         User userFromDb = userService.findByUsername(user.getUsername());
 
         if (userFromDb != null) {
             model.addAttribute("UsernameExistsError", "Username exists!");
+            return "registration";
+        }
+        if(!repeat_password.equals(user.getPassword())){
+            model.addAttribute("RepeatPasswordError", "The password is not equal to the repeated password!");
             return "registration";
         }
         /*if(user.getUsername().length() < 4 || user.getUsername().length() > 30){
