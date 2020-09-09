@@ -1,0 +1,39 @@
+<div th:fragment="footer">
+    <style>
+        .foot{
+            background: #232323;
+            padding: 70px 0;
+        }
+
+        .foot p{
+            font-size: 14px;
+            line-height: 25px;
+            color: #8f8f8f;
+        }
+
+        .content_ {
+            min-height: calc(100% - 58px);
+            margin-bottom: -58px;
+        }
+        .content_:after {
+            content: '';
+            display: block;
+        }
+    </style>
+
+    <div class="foot">
+        <div class="text-center">
+            <div class="container">
+                <p>Alex Mordyasov<br>
+                    mordyasov.60@mail.ru</p>
+                <div class="social top_15">
+                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i>  </a>
+                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i>  </a>
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>  </a>
+                    <a href="#"><i class="fa fa-behance" aria-hidden="true"></i>  </a>
+                    <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i>  </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

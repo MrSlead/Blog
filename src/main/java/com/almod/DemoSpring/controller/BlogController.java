@@ -30,6 +30,9 @@ public class BlogController {
 
     @GetMapping("/blog/add")
     public String blogAdd(Model model){
+        Iterable<Post> posts = postService.findAll();
+
+        model.addAttribute("posts", posts);
         return "blogAdd";
     }
 

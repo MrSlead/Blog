@@ -9,16 +9,20 @@
 <body>
 <header th:insert="parts/header :: header"></header>
 
-<div class="container mt-5 mb-5">
-    <h1>Edit post</h1>
-    <div th:each="post : ${posts}" class="alert alert-info mt-2">
-        <form method="post">
-            <input type="text" th:value="${post.title}" name="title" placeholder="Enter the title of the post" class="from-control"><br>
-            <input type="text" th:value="${post.anons}" name="anons" placeholder="Enter the anons of the post" class="from-control"><br>
-            <textarea name="full_text" th:text="${post.full_text}" placeholder="Enter the blog text" class="from-control"></textarea>
-            <button type="submit" class="btn btn-success">Update post</button>
-        </form>
+<div class="content_">
+    <div class="container mt-5 mb-5">
+        <h1>Edit post</h1>
+        <div th:each="post : ${posts}" class="alert alert-info mt-2">
+            <form method="post">
+                <input type="text" th:value="${post.title}" name="title" placeholder="Enter the title of the post" class="from-control"><br><br>
+                <input type="text" th:value="${post.anons}" name="anons" placeholder="Enter the anons of the post" class="from-control"><br><br>
+                <textarea name="full_text" th:text="${post.full_text}" placeholder="Enter the blog text" class="from-control"></textarea><br><br>
+                <button type="submit" class="btn btn-success">Update post</button>
+            </form>
+        </div>
     </div>
 </div>
+
+<div th:insert="parts/footer :: footer"></div>
 </body>
 </html>
