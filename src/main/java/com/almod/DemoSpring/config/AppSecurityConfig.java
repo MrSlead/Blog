@@ -15,8 +15,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class AppSecurityConfig extends WebSecurityConfigurerAdapter
-{
+public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -34,13 +33,15 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter
 
         http
                 .csrf().disable()
-                .authorizeRequests().antMatchers( "/", "/blog", "/home", "/about", "/registration", "/login").permitAll()
+                .authorizeRequests().antMatchers( "/", "/blog", "/home", "/about", "/registration", "/login", "/logout").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
                 .and()
-                .logout().permitAll();
+                .logout()
+                .logoutSuccessUrl("/login")
+                .permitAll();
 
 
     }

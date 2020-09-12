@@ -1,7 +1,6 @@
 package com.almod.DemoSpring.controller;
 
 import com.almod.DemoSpring.entity.User;
-import com.almod.DemoSpring.repo.UserRepo;
 import com.almod.DemoSpring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,12 +17,15 @@ public class RegistrationController {
 
     @GetMapping("/login")
     public String login(){
+        if(!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")){
+            return "redirect:/logout-success";
+        }
         return "/login";
     }
 
     @GetMapping("/logout-success")
     public String logout(){
-        return "logout";
+        return "logoutPage";
     }
 
     @GetMapping("/registration")

@@ -55,7 +55,6 @@ public class BlogController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         post.setUser(userService.findByUsername(auth.getName()));
 
-        System.out.println(post.getUser().getUsername());
 
         postService.save(post);
         return "redirect:/blog";
