@@ -3,7 +3,10 @@ package com.almod.DemoSpring.controller;
 import com.almod.DemoSpring.entity.Post;
 import com.almod.DemoSpring.repo.PostRepo;
 import com.almod.DemoSpring.service.PostService;
+import com.almod.DemoSpring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +24,9 @@ import java.util.Optional;
 public class BlogController {
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/blog")
     public String blog(Model model){
@@ -39,6 +47,15 @@ public class BlogController {
     @PostMapping("/blog/add")
     public String add(@RequestParam String title, @RequestParam String anons, @RequestParam String full_text){
         Post post = new Post(title, anons, full_text);
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss dd-MM-y");
+        post.setDate(sdf.format(date));
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        post.setUser(userService.findByUsername(auth.getName()));
+
+        System.out.println(post.getUser().getUsername());
 
         postService.save(post);
         return "redirect:/blog";

@@ -1,9 +1,7 @@
 package com.almod.DemoSpring.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Post {
@@ -14,6 +12,10 @@ public class Post {
     private String title;
     private String anons;
     private String full_text;
+    private String date;
+
+    @ManyToOne
+    private User user;
 
     public Post() {
     }
@@ -56,4 +58,19 @@ public class Post {
         this.full_text = fulltext;
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getDate(){
+        return date;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
