@@ -161,19 +161,19 @@
             </div>
             <div class="modal-body">
                 <!-- Form -->
-                <form class="contact-form bottom_15 top_15">
+                <form action="sendQuestion" method="post" class="contact-form bottom_15 top_15">
                     <div class="row">
                         <!--Name-->
                         <div class="col-md-12">
-                            <input id="con_name" name="con_name" class="form-inp requie" type="text" placeholder="Name">
+                            <input id="con_name" name="name" class="form-inp requie" type="text" placeholder="Name">
                         </div>
                         <!--Email-->
                         <div class="col-md-12 top_15">
-                            <input id="con_email" name="con_email" class="form-inp requie" type="text" placeholder="Email">
+                            <input id="con_email" name="email" class="form-inp requie" type="text" placeholder="Email">
                         </div>
                         <div class="col-md-12">
                             <!--Message-->
-                            <textarea name="con_message" id="con_message" class="requie" placeholder="How can I help you?" rows="8"></textarea>
+                            <textarea name="textQuestion" id="con_message" class="requie" placeholder="How can I help you?" rows="8"></textarea>
                             <button id="con_submit" class="site-btn top_30 pull-right" type="submit">SEND MESSAGE</button>
                         </div>
                     </div>
