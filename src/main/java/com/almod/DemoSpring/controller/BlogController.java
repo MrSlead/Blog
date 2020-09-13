@@ -71,6 +71,14 @@ public class BlogController {
         post.ifPresent(list::add);
 
         model.addAttribute("posts", list);
+
+        if(SecurityContextHolder.getContext().getAuthentication().getName().equals(post.get().getUser().getUsername())){
+            model.addAttribute("isUserCreator", "edit_and_remove");
+        }
+        else {
+            model.addAttribute("isUserCreator", "nothing");
+        }
+
         return "blogDetails";
     }
 
@@ -79,6 +87,9 @@ public class BlogController {
         Optional<Post> post = postService.findById(id);
         if(!postService.existsById(id)){
             return "redirect:/blog";
+        }
+        if(!SecurityContextHolder.getContext().getAuthentication().getName().equals(post.get().getUser().getUsername())){
+            return "redirect:/blog/{id}";
         }
 
         List<Post> list = new ArrayList<>();

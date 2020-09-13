@@ -1,0 +1,16 @@
+<div th:fragment="edit_and_remove">
+    <div class="text-right mr-2 mb-1">
+        <a th:href="'/blog/' + ${post.id} + '/edit'" class="btn btn-info">Edit</a>
+    </div>
+
+    <div class="text-right mr-2">
+        <form th:action="'/blog/' + ${post.id} + '/remove'" method="post">
+            <button class="btn btn-warning" type="submit">Remove</button>
+        </form>
+    </div>
+</div>
+
+<div th:fragment="nothing">
+    <div>
+    </div>
+</div>
