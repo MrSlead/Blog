@@ -43,6 +43,9 @@ public class EmailController {
 
     @PostMapping("/sendQuestion")
     public String sendQuestion(@RequestParam String name, @RequestParam String email, @RequestParam String textQuestion) throws MessagingException {
+        if(!email.endsWith("@gmail.com")){
+            return "main";
+        }
         Question question = new Question(name, email, textQuestion);
         questionService.save(question);
 
