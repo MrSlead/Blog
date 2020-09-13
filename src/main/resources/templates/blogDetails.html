@@ -11,14 +11,32 @@
 
 <div class="content_">
     <div class="container mt-5">
-        <div th:each="post : ${posts}" class="alert alert-info mt-2">
-            <h1 th:text="${post.title}" />
-            <p th:text="${post.full_text}" />
-            <a th:href="'/blog/' + ${post.id} + '/edit'" class="btn btn-info">Edit</a><br>
+        <div th:each="post : ${posts}" class="border border-secondary bg-light rounded mt-2">
+            <div class="text-center">
+                <h4 th:text="${post.title}" />
+                <hr>
+            </div>
 
-            <form th:action="'/blog/' + ${post.id} + '/remove'" method="post">
-                <button class="btn btn-warning" type="submit">Remove</button>
-            </form>
+            <span class="mr-2 ml-2" th:text="${post.full_text}" />
+            <hr>
+
+            <div class="text-right text-dark mr-2">
+                <span th:text="${post.user.username}" />
+            </div>
+
+            <div class="text-right text-dark mr-2">
+                <span th:text="${post.date}" />
+            </div>
+
+            <div class="text-right mr-2 mb-1">
+                <a th:href="'/blog/' + ${post.id} + '/edit'" class="btn btn-info">Edit</a>
+            </div>
+
+            <div class="text-right mr-2">
+                <form th:action="'/blog/' + ${post.id} + '/remove'" method="post">
+                    <button class="btn btn-warning" type="submit">Remove</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

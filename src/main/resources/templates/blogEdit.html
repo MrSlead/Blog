@@ -4,24 +4,77 @@
     <div th:insert="parts/authentication :: links"></div>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <meta charset="UTF-8">
-    <title>Edit Post</title>
+    <title>Update Post</title>
+
 </head>
 <body>
 <header th:insert="parts/header :: header"></header>
 
-<div class="content_">
-    <div class="container mt-5 mb-5">
-        <h1>Edit post</h1>
-        <div th:each="post : ${posts}" class="alert alert-info mt-2">
-            <form method="post">
-                <input type="text" th:value="${post.title}" name="title" placeholder="Enter the title of the post" class="from-control"><br><br>
-                <input type="text" th:value="${post.anons}" name="anons" placeholder="Enter the anons of the post" class="from-control"><br><br>
-                <textarea name="full_text" th:text="${post.full_text}" placeholder="Enter the blog text" class="from-control"></textarea><br><br>
-                <button type="submit" class="btn btn-success">Update post</button>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="m-auto">
+            <h1 class="text-center">Update post</h1>
+            <form id="contact-form" method="post" role="form">
+                <div class="controls">
+                    <div th:each="post : ${posts}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="form_name">Title</label>
+                                    <input id="form_name" type="text" name="title" class="form-control" th:value="${post.title}">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="form_lastname">Anons</label>
+                                    <input id="form_lastname" type="text" name="anons" class="form-control" th:value="${post.anons}">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="form_message">Text of the post</label>
+                                    <textarea id="form_message" style="overflow:hidden;" name="full_text" class="form-control" placeholder="text" rows="4" th:text="${post.full_text}"></textarea>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+                            <script>
+                                var tx = document.getElementsByTagName('textarea');//РАСТЯГИВАЕМ_textarea
+                                for (var i = 0; i < tx.length; i++) {
+                                    tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+                                    tx[i].addEventListener("input", OnInput, false);
+                                }
+
+                                function OnInput() {
+                                    this.style.height = 'auto';
+                                    this.style.height = (this.scrollHeight) + 'px';//console.log(this.scrollHeight);
+                                }
+                            </script>
+
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <!-- Replace data-sitekey with your own one, generated at https://www.google.com/recaptcha/admin -->
+                                    <div class="g-recaptcha" data-sitekey="6LfKURIUAAAAAO50vlwWZkyK_G2ywqE52NU7YO0S"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mb-5">
+                                <input type="submit" class="btn btn-success btn-send" value="Update post">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
-        </div>
-    </div>
-</div>
+        </div><!-- /.col-lg-8 col-lg-offset-2 -->
+    </div><!-- /.row-->
+</div> <!-- /.container-->
 
 <div th:insert="parts/footer :: footer"></div>
 </body>
