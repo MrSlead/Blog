@@ -17,7 +17,7 @@
     );
 
  create table user (
-        id bigint not null,
+        id bigint not null auto_increment,
         password varchar(80),
         username varchar(30),
         primary key (id)

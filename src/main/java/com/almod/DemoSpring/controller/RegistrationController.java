@@ -55,7 +55,7 @@ public class RegistrationController {
                     "The password must be longer than 6 characters and less than 80 characters.");
             return "registration";
         }*/
-
+        System.out.println(user.getId());
         userService.save(user);
 
         return "redirect:/login";

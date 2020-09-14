@@ -4,6 +4,7 @@ import com.almod.DemoSpring.entity.User;
 import com.almod.DemoSpring.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,6 +15,9 @@ public class UserService implements UserRepo {
     @Qualifier("userRepo")
     private UserRepo userRepo;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public User findByUsername(String username) {
         return userRepo.findByUsername(username);
@@ -21,6 +25,7 @@ public class UserService implements UserRepo {
 
     @Override
     public <S extends User> S save(S s) {
+        s.setPassword(passwordEncoder.encode(s.getPassword()));
         return userRepo.save(s);
     }
 
