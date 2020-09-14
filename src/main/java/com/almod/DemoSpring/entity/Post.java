@@ -1,7 +1,6 @@
 package com.almod.DemoSpring.entity;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 public class Post {
