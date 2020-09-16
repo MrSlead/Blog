@@ -46,12 +46,14 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/blog", "/home", "/about", "/registration", "/login", "/logout").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login").permitAll()
+                    .formLogin()
+                    .loginPage("/login").permitAll()
                 .and()
-                .logout()
-                .logoutSuccessUrl("/login")
-                .permitAll();
+                    .logout()
+                    .logoutSuccessUrl("/login")
+                    .permitAll()
+                .and()
+                    .rememberMe();
 
 
     }
