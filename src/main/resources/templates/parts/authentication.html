@@ -13,6 +13,7 @@
                         <p style="color: red; padding-top: 20px; font-size: 15px; font-weight: bold;" th:text="${PasswordLengthError}"/>
                         <p style="color: red; padding-top: 20px; font-size: 15px; font-weight: bold;" th:text="${UsernameLengthError}"/>
                         <p style="color: red; padding-top: 20px; font-size: 15px; font-weight: bold;" th:text="${RepeatPasswordError}"/>
+                        <p style="color: red; padding-top: 20px; font-size: 15px; font-weight: bold;" th:text="${CaptchaError}"/>
 					</span>
 
                     <div class="wrap-input100 validate-input" data-validate = "Enter nickname">
@@ -35,6 +36,8 @@
                             </button>
                         </div>
                     </div>
+
+                    <div class="g-recaptcha mt-3" data-sitekey="6Lf2xcwZAAAAAGgX3zp3gNdaWt1dfemdIV5XymCe"></div>
 
                     <div class="text-center p-t-115">
 						<span class="txt1" th:text="${questionAction}">

@@ -1,19 +1,32 @@
 package com.almod.DemoSpring.controller;
 
+import com.almod.DemoSpring.dto.CaptchaResponseDto;
 import com.almod.DemoSpring.entity.User;
 import com.almod.DemoSpring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Collections;
 
 @Controller
 public class RegistrationController {
+    private final static String CAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s";
+
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Value("${recaptcha.secret}")
+    private String secret;
 
     @GetMapping("/login")
     public String login(){
@@ -34,7 +47,18 @@ public class RegistrationController {
     }
 
     @PostMapping("registration")
-    public String addUser(User user, @RequestParam String repeat_password, Model model){
+    public String addUser(User user,
+                          @RequestParam String repeat_password,
+                          @RequestParam("g-recaptcha-response") String captcha_response,
+                          Model model){
+
+        String url = String.format(CAPTCHA_URL, secret, captcha_response);
+        CaptchaResponseDto responseDto = restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponseDto.class);
+        if(!responseDto.isSuccess()){
+            model.addAttribute("CaptchaError", "Fill captcha");
+            return "registration";
+        }
+
         User userFromDb = userService.findByUsername(user.getUsername());
 
         if (userFromDb != null) {
@@ -45,7 +69,7 @@ public class RegistrationController {
             model.addAttribute("RepeatPasswordError", "The password is not equal to the repeated password!");
             return "registration";
         }
-        /*if(user.getUsername().length() < 4 || user.getUsername().length() > 30){
+        if(user.getUsername().length() < 4 || user.getUsername().length() > 30){
             model.addAttribute("UsernameLengthError",
                     "The name must be longer than 4 characters and less than 30 characters.");
             return "registration";
@@ -54,8 +78,8 @@ public class RegistrationController {
             model.addAttribute("PasswordLengthError",
                     "The password must be longer than 6 characters and less than 80 characters.");
             return "registration";
-        }*/
-        System.out.println(user.getId());
+        }
+
         userService.save(user);
 
         return "redirect:/login";
