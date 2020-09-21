@@ -1,11 +1,11 @@
 <div th:fragment="header">
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm">
         <h5 class="my-0 mr-md-auto font-weight-normal"><b>Almod Blog</b></h5>
-        <nav class="my-2 my-md-0 mr-md-3">
+        <div class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark"  href="/home#home"><b>Main</b></a>
             <a class="p-2 text-dark" href="/blog"><b>Blog</b></a>
             <a class="p-2 text-dark" href="/home#about"><b>About us</b></a>
-        </nav>
+        </div>
         <!--<a class="btn btn-outline-primary" th:href="${authorization}" th:text="${textAuth}"></a>-->
         <a class="btn btn-outline-primary" href="/login" >Sign in</a>
     </div>
