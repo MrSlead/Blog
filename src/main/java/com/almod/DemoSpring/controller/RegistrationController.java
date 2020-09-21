@@ -29,12 +29,16 @@ public class RegistrationController {
     private String secret;*/
 
     @GetMapping("/login")
-    public String login(){
+    public String login(@RequestParam(required = false) String error, Model model){
         if(!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")){
             return "redirect:/logout-success";
         }
+        if(error != null && error.equals("true")){
+            model.addAttribute("PasswordError", "Wrong password!");
+        }
         return "login";
     }
+
 
     @GetMapping("/logout-success")
     public String logout(){

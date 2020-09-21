@@ -17,7 +17,11 @@
                 <hr>
             </div>
 
-            <span class="mr-2 ml-2" th:text="${post.full_text}" />
+            <div class="mr-2 ml-2">
+                <div style="word-wrap: break-word;">
+                    <span th:text="${post.full_text}" ></span>
+                </div>
+            </div>
             <hr>
 
             <div class="text-right text-dark mr-2">
@@ -32,6 +36,7 @@
         </div>
     </div>
 </div>
+
 
 <div th:insert="parts/footer :: footer"></div>
 </body>
