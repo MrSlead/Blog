@@ -17,23 +17,23 @@ import java.util.Collections;
 
 @Controller
 public class RegistrationController {
-    private final static String CAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s";
+    //private final static String CAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s";
 
     @Autowired
     private UserService userService;
 
-    @Autowired
+    /*@Autowired
     private RestTemplate restTemplate;
 
     @Value("${recaptcha.secret}")
-    private String secret;
+    private String secret;*/
 
     @GetMapping("/login")
     public String login(){
         if(!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")){
             return "redirect:/logout-success";
         }
-        return "/login";
+        return "login";
     }
 
     @GetMapping("/logout-success")
@@ -49,15 +49,15 @@ public class RegistrationController {
     @PostMapping("registration")
     public String addUser(User user,
                           @RequestParam String repeat_password,
-                          @RequestParam("g-recaptcha-response") String captcha_response,
+                          //@RequestParam("g-recaptcha-response") String captcha_response,
                           Model model){
 
-        String url = String.format(CAPTCHA_URL, secret, captcha_response);
+        /*String url = String.format(CAPTCHA_URL, secret, captcha_response);
         CaptchaResponseDto responseDto = restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponseDto.class);
         if(!responseDto.isSuccess()){
             model.addAttribute("CaptchaError", "Fill captcha");
             return "registration";
-        }
+        }*/
 
         User userFromDb = userService.findByUsername(user.getUsername());
 
