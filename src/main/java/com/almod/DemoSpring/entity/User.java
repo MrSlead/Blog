@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Set;
 
-@Entity
+@Entity(name = "usr")
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,7 +1,6 @@
 package com.almod.DemoSpring.controller;
 
 import com.almod.DemoSpring.entity.Post;
-import com.almod.DemoSpring.repo.PostRepo;
 import com.almod.DemoSpring.service.PostService;
 import com.almod.DemoSpring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +52,7 @@ public class BlogController {
         post.setDate(sdf.format(date));
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        post.setUser(userService.findByUsername(auth.getName()));
+        post.setUsr(userService.findByUsername(auth.getName()));
 
 
         postService.save(post);
@@ -72,7 +71,7 @@ public class BlogController {
 
         model.addAttribute("posts", list);
 
-        if(SecurityContextHolder.getContext().getAuthentication().getName().equals(post.get().getUser().getUsername())){
+        if(SecurityContextHolder.getContext().getAuthentication().getName().equals(post.get().getUsr().getUsername())){
             model.addAttribute("isUserCreator", "edit_and_remove");
         }
         else {
@@ -88,7 +87,7 @@ public class BlogController {
         if(!postService.existsById(id)){
             return "redirect:/blog";
         }
-        if(!SecurityContextHolder.getContext().getAuthentication().getName().equals(post.get().getUser().getUsername())){
+        if(!SecurityContextHolder.getContext().getAuthentication().getName().equals(post.get().getUsr().getUsername())){
             return "redirect:/blog/{id}";
         }
 

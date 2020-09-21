@@ -14,8 +14,8 @@ public class Post implements Serializable {
     private String full_text;
     private String date;
 
-    @ManyToOne
-    private User user;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User usr;
 
     public Post() {
     }
@@ -66,11 +66,11 @@ public class Post implements Serializable {
         return date;
     }
 
-    public User getUser() {
-        return user;
+    public User getUsr() {
+        return usr;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsr(User user) {
+        this.usr = user;
     }
 }
