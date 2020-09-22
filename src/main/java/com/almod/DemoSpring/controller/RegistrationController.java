@@ -34,7 +34,7 @@ public class RegistrationController {
             return "redirect:/logout-success";
         }
         if(error != null && error.equals("true")){
-            model.addAttribute("PasswordError", "Wrong password!");
+            model.addAttribute("PasswordError", "Wrong password or user does not exist!");
         }
         return "login";
     }

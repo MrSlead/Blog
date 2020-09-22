@@ -59,7 +59,7 @@ public class EmailController {
                 "</b>. You asked me a question. Thank you for your feedback. I'll send you a message soon."
                 + "<br> <b>Your question: " + textQuestion + "</b></h3>";
 
-        message.setContent(htmlMsg, "text/html");
+        message.setContent(htmlMsg, "text/html; charset=UTF-8");
         helper.setTo(email);
         helper.setSubject("Test send HTML email");
 
@@ -71,7 +71,7 @@ public class EmailController {
                         + "<br> Name: " + name
                         + "<br> Question: " + textQuestion;
 
-        message.setContent(htmlMsg2, "text/html");
+        message.setContent(htmlMsg, "text/html; charset=UTF-8");
         helper.setTo("blog.java.webapp@gmail.com");
         helper.setSubject("Question " + question.getId());
 
