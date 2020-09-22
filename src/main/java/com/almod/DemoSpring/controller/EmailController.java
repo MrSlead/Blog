@@ -71,7 +71,7 @@ public class EmailController {
                         + "<br> Name: " + name
                         + "<br> Question: " + textQuestion;
 
-        message.setContent(htmlMsg, "text/html; charset=UTF-8");
+        message.setContent(htmlMsg2, "text/html; charset=UTF-8");
         helper.setTo("blog.java.webapp@gmail.com");
         helper.setSubject("Question " + question.getId());
 
