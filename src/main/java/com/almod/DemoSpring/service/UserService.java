@@ -15,8 +15,12 @@ public class UserService implements UserRepo {
     @Qualifier("userRepo")
     private UserRepo userRepo;
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder){
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public User findByUsername(String username) {
