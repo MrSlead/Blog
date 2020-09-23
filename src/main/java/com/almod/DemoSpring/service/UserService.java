@@ -15,6 +15,12 @@ public class UserService implements UserRepo {
     @Qualifier("userRepo")
     private UserRepo userRepo;
 
+    /*private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder){
+        this.passwordEncoder = passwordEncoder;
+    }*/
 
     @Override
     public User findByUsername(String username) {
@@ -23,6 +29,7 @@ public class UserService implements UserRepo {
 
     @Override
     public <S extends User> S save(S s) {
+        //s.setPassword(passwordEncoder.encode(s.getPassword()));
         return userRepo.save(s);
     }
 
