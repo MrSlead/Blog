@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="text-right text-dark mr-2">
-                    <span th:text="${post.usr.username}" />
+                    <a th:href="'/blog/' + ${post.usr.id} + '/messages'" th:text="${post.usr.username}" />
                 </div>
 
                 <div class="text-right text-dark mr-2">
