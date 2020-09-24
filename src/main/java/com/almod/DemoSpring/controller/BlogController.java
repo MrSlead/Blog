@@ -28,8 +28,23 @@ public class BlogController {
     private UserService userService;
 
     @GetMapping("/blog")
-    public String blog(Model model){
+    public String blog(@RequestParam(required = false) String name,
+                       @RequestParam(required = false) String radiobutton,
+                       Model model){
+
         Iterable<Post> posts = postService.findAll();
+
+        if(!(name == null || name.isEmpty())){
+            if(radiobutton != null ) {
+                if (radiobutton.equals("rad1")) {
+                    posts = postService.findPostsByUsr_Username(name);
+                }
+                if (radiobutton.equals("rad2")) {
+                    posts = postService.findPostsByTitle(name);
+                }
+            }
+        }
+
 
         model.addAttribute("posts", posts);
         return "blog";
