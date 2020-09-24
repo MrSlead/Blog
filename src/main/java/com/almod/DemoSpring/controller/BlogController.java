@@ -4,6 +4,11 @@ import com.almod.DemoSpring.entity.Post;
 import com.almod.DemoSpring.service.PostService;
 import com.almod.DemoSpring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -18,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class BlogController {
@@ -30,23 +37,42 @@ public class BlogController {
     @GetMapping("/blog")
     public String blog(@RequestParam(required = false) String name,
                        @RequestParam(required = false) String radiobutton,
+                       @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
+                       @RequestParam("page") Optional<Integer> page,
+                       @RequestParam("size") Optional<Integer> size,
                        Model model){
 
-        Iterable<Post> posts = postService.findAll();
+        //Page<Post> posts = postService.findAll(pageable);
+
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+
+        Page<Post> postPage = postService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
 
         if(!(name == null || name.isEmpty())){
             if(radiobutton != null ) {
                 if (radiobutton.equals("rad1")) {
-                    posts = postService.findPostsByUsr_Username(name);
+                    postPage = postService.findPostsByUsr_Username(name, pageable);
                 }
                 if (radiobutton.equals("rad2")) {
-                    posts = postService.findPostsByTitle(name);
+                    postPage = postService.findPostsByTitle(name, pageable);
                 }
             }
         }
 
+        int totalPages = postPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
 
-        model.addAttribute("posts", posts);
+
+        model.addAttribute("value", name);
+        //model.addAttribute("posts", posts);
+        model.addAttribute("postPage", postPage);
+
         return "blog";
     }
 

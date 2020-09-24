@@ -24,16 +24,42 @@
 
     <div class="m-auto text-center">
         <form method="get" action="/blog">
-            <h5>Search:</h5> <input type="text" name="name" class="mr-2" style="border: 1px solid #007bff;" placeholder="Enter name">
+            <h5>Search:</h5> <input type="text" name="name" th:value="${value}" class="mr-2" style="border: 1px solid #007bff;" placeholder="Enter name">
             <input type="radio" name="radiobutton" value="rad1">By username
             <input type="radio" name="radiobutton" value="rad2" class="ml-2">By title the post<br>
-            <button class="btn btn-outline-info mt-2" type="submit">Search</button>
+            <!--<input type="hidden" name="size" th:value="${postPage.size}">
+            <input type="hidden" name="page" th:value="${pageNumber}">-->
+            <button  class="btn btn-outline-info mt-2" type="submit">Search</button>
         </form>
     </div>
 
     <div class="content_">
         <div class="container mt-5">
-            <div th:each="post : ${posts}" class="border border-secondary bg-light rounded mt-2">
+            <ul class="pagination">
+                <!--<li class="page-item disabled">
+                    <span class="page-link">Previous</span>
+                </li>-->
+
+                <div th:if="${postPage.totalPages > 0}" class="pagination"
+                     th:each="pageNumber : ${pageNumbers}">
+                    <li th:class="${pageNumber==postPage.number + 1} ? 'page-item active' : 'page-item'">
+
+                        <span th:if="${pageNumber==postPage.number + 1} == true"
+                              th:class="page-link" th:text="${pageNumber}">
+                        </span>
+
+                        <a th:if="${pageNumber==postPage.number + 1} == false"
+                           th:href="@{/blog(size=${postPage.size}, page=${pageNumber})}"
+                           th:text=${pageNumber} class="page-link"></a>
+                    </li>
+                </div>
+
+                <!--<li class="page-item">
+                    <a class="page-link" th:href="@{/blog(size=${bookPage.size}, page=${page}+1)}">Next</a>
+                </li>-->
+            </ul>
+
+            <div th:each="post: ${postPage.content}" class="border border-secondary bg-light rounded mt-2">
                 <div class="text-center">
                     <h4 th:text="${post.title}" />
                     <hr>
@@ -58,6 +84,21 @@
             </div>
         </div>
     </div>
+
+    <!--<table border="1">
+        <tbody>
+        <tr th:each="book, iStat : ${bookPage.content}">
+            <td th:text="${book.id}" />
+            <td th:text="${book.title}" />
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${bookPage.totalPages > 0}" class="pagination"
+         th:each="pageNumber : ${pageNumbers}">
+        <a th:href="@{/blog(size=${bookPage.size}, page=${pageNumber})}"
+           th:text=${pageNumber}
+           th:class="${pageNumber==bookPage.number + 1} ? active"></a>
+    </div>-->
 
     <div style="margin-top: 100px"></div>
     <div th:insert="parts/footer :: footer"></div>
