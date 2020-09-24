@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -70,12 +72,28 @@ public class PostService implements PostRepo {
     }
 
     @Override
-    public Iterable<Post> findPostsByUsr_Username(String username) {
-        return postRepo.findPostsByUsr_Username(username);
+    public List<Post> findPostsByUsr_Username(String username) {
+        Iterable<Post> posts = postRepo.findAll();
+
+        List<Post> list = new ArrayList<>();
+        for(Post post : posts){
+            if(post.getUsr().getUsername().contains(username)){
+                list.add(post);
+            }
+        }
+        return list;
     }
 
     @Override
-    public Iterable<Post> findPostsByTitle(String title) {
-        return postRepo.findPostsByTitle(title);
+    public List<Post> findPostsByTitle(String title) {
+        Iterable<Post> posts = postRepo.findAll();
+
+        List<Post> list = new ArrayList<>();
+        for(Post post : posts){
+            if(post.getTitle().contains(title)){
+                list.add(post);
+            }
+        }
+        return list;
     }
 }
