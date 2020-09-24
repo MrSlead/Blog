@@ -9,7 +9,7 @@
 <body>
     <header th:insert="parts/header :: header"></header>
 
-    <div class="container w-50">
+    <div class="container w-50 mb-4">
         <div class="border border-primary rounded mt-2">
             <div class="m-auto text-center">
                 <div class="mt-2">
@@ -20,6 +20,15 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="m-auto text-center">
+        <form method="get" action="/blog">
+            <h5>Search:</h5> <input type="text" name="name" class="mr-2" style="border: 1px solid #007bff;" placeholder="Enter name">
+            <input type="radio" name="radiobutton" value="rad1">By username
+            <input type="radio" name="radiobutton" value="rad2" class="ml-2">By title the post<br>
+            <button class="btn btn-outline-info mt-2" type="submit">Search</button>
+        </form>
     </div>
 
     <div class="content_">

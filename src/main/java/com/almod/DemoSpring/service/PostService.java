@@ -68,4 +68,14 @@ public class PostService implements PostRepo {
     public void deleteAll() {
         postRepo.deleteAll();
     }
+
+    @Override
+    public Iterable<Post> findPostsByUsr_Username(String username) {
+        return postRepo.findPostsByUsr_Username(username);
+    }
+
+    @Override
+    public Iterable<Post> findPostsByTitle(String title) {
+        return postRepo.findPostsByTitle(title);
+    }
 }
