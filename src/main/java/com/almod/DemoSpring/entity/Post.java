@@ -11,8 +11,10 @@ public class Post implements Serializable {
 
     private String title;
     private String anons;
-    @Column(length = 5000)
+
+    @Column(columnDefinition="text")
     private String full_text;
+
     private String date;
 
     @ManyToOne(fetch = FetchType.EAGER)
