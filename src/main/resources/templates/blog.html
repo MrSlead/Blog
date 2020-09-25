@@ -27,9 +27,9 @@
             <h5>Search:</h5> <input type="text" name="name" th:value="${value}" class="mr-2" style="border: 1px solid #007bff;" placeholder="Enter name">
             <input type="radio" name="radiobutton" value="rad1">By username
             <input type="radio" name="radiobutton" value="rad2" class="ml-2">By title the post<br>
-            <!--<input type="hidden" name="size" th:value="${postPage.size}">
-            <input type="hidden" name="page" th:value="${pageNumber}">-->
-            <button  class="btn btn-outline-info mt-2" type="submit">Search</button>
+            <input type="hidden" name="size" th:value="${postPage.size}">
+            <input type="hidden" name="page" th:value="${currentPage} ">
+            <button class="btn btn-outline-info mt-2" type="submit">Search</button>
         </form>
     </div>
 
@@ -48,9 +48,17 @@
                               th:class="page-link" th:text="${pageNumber}">
                         </span>
 
-                        <a th:if="${pageNumber==postPage.number + 1} == false"
-                           th:href="@{/blog(size=${postPage.size}, page=${pageNumber})}"
-                           th:text=${pageNumber} class="page-link"></a>
+                        <div th:if="${isSearch} == false">
+                            <a th:if="${pageNumber==postPage.number + 1} == false"
+                               th:href="@{/blog(size=${postPage.size}, page=${pageNumber})}"
+                               th:text=${pageNumber} class="page-link"></a>
+                        </div>
+
+                        <div th:if="${isSearch} == true">
+                            <a th:if="${pageNumber==postPage.number + 1} == false"
+                               th:href="@{/blog(name=${value}, radiobutton=${radiobutton}, size=${postPage.size}, page=${pageNumber})}"
+                               th:text=${pageNumber} class="page-link"></a>
+                        </div>
                     </li>
                 </div>
 

@@ -85,7 +85,7 @@ public class PostService implements PostRepo {
 
     @Override
     public Page<Post> findPostsByUsr_Username(String username, Pageable pageable) {
-        Page<Post> posts = findPaginated(pageable);
+        Iterable<Post> posts = postRepo.findAll();
 
         List<Post> list = new ArrayList<>();
         for(Post post : posts){
@@ -93,12 +93,12 @@ public class PostService implements PostRepo {
                 list.add(post);
             }
         }
-        return new PageImpl<>(list);
+        return findPaginated(list, pageable);
     }
 
     @Override
     public Page<Post> findPostsByTitle(String title, Pageable pageable) {
-        Iterable<Post> posts = findPaginated(pageable);
+        Iterable<Post> posts = postRepo.findAll();
 
         List<Post> list = new ArrayList<>();
         for(Post post : posts){
@@ -106,15 +106,15 @@ public class PostService implements PostRepo {
                 list.add(post);
             }
         }
-        return new PageImpl<>(list);
+        return findPaginated(list, pageable);
     }
 
-    public Page<Post> findPaginated(Pageable pageable) {
+    public Page<Post> findPaginated(List<Post> listPage, Pageable pageable) {
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;
         List<Post> list;
-        List<Post> posts = (List<Post>) postRepo.findAll();
+        List<Post> posts = (List<Post>) listPage;
 
         if (posts.size() < startItem) {
             list = Collections.emptyList();

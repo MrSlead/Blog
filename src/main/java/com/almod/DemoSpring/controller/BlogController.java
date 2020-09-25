@@ -1,5 +1,6 @@
 package com.almod.DemoSpring.controller;
 
+import com.almod.DemoSpring.enginer.ButtonEnginer;
 import com.almod.DemoSpring.entity.Post;
 import com.almod.DemoSpring.service.PostService;
 import com.almod.DemoSpring.service.UserService;
@@ -34,6 +35,7 @@ public class BlogController {
     @Autowired
     private UserService userService;
 
+
     @GetMapping("/blog")
     public String blog(@RequestParam(required = false) String name,
                        @RequestParam(required = false) String radiobutton,
@@ -42,22 +44,38 @@ public class BlogController {
                        @RequestParam("size") Optional<Integer> size,
                        Model model){
 
-        //Page<Post> posts = postService.findAll(pageable);
-
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
 
-        Page<Post> postPage = postService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        Page<Post> postPage = null;
 
+
+        if(!(name == null || name.isEmpty()) && (radiobutton != null)) {
+            if(radiobutton.equals("rad1") || radiobutton.equals("rad2")) {
+                if (!ButtonEnginer.getClickedButton()) {
+                    currentPage = 1;
+                    ButtonEnginer.doTrue();
+                }
+            }
+        } else ButtonEnginer.doFalse();
+
+        boolean isSearch = false;
         if(!(name == null || name.isEmpty())){
             if(radiobutton != null ) {
                 if (radiobutton.equals("rad1")) {
-                    postPage = postService.findPostsByUsr_Username(name, pageable);
+                    isSearch = true;
+                    postPage = postService.findPostsByUsr_Username(name, PageRequest.of(currentPage - 1, pageSize));
                 }
                 if (radiobutton.equals("rad2")) {
-                    postPage = postService.findPostsByTitle(name, pageable);
+                    isSearch = true;
+                    postPage = postService.findPostsByTitle(name, PageRequest.of(currentPage - 1, pageSize));
                 }
             }
+        }
+
+        if(postPage == null){
+            postPage = postService.findPaginated((List<Post>) postService.findAll(),
+                    PageRequest.of(currentPage - 1, pageSize));
         }
 
         int totalPages = postPage.getTotalPages();
@@ -68,10 +86,12 @@ public class BlogController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
 
-
         model.addAttribute("value", name);
-        //model.addAttribute("posts", posts);
+        model.addAttribute("radiobutton", radiobutton);
+        model.addAttribute("isSearch", isSearch);
+
         model.addAttribute("postPage", postPage);
+        model.addAttribute("currentPage", currentPage);
 
         return "blog";
     }
