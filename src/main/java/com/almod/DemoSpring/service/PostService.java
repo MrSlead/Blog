@@ -89,7 +89,7 @@ public class PostService implements PostRepo {
 
         List<Post> list = new ArrayList<>();
         for(Post post : posts){
-            if(post.getUsr().getUsername().contains(username)){
+            if(post.getUsr().getUsername().toLowerCase().contains(username.toLowerCase())){
                 list.add(post);
             }
         }
@@ -102,7 +102,7 @@ public class PostService implements PostRepo {
 
         List<Post> list = new ArrayList<>();
         for(Post post : posts){
-            if(post.getTitle().contains(title)){
+            if(post.getTitle().toLowerCase().contains(title.toLowerCase())){
                 list.add(post);
             }
         }

@@ -151,7 +151,7 @@ public class BlogController {
         post.get().setFull_text(full_text);
         postService.save(post.get());
 
-        return "redirect:/blog";
+        return "redirect:/blog/{id}";
     }
 
     @PostMapping("/blog/{id}/remove")
