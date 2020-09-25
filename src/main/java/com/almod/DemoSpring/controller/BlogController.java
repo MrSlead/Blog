@@ -20,10 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -35,6 +32,7 @@ public class BlogController {
     @Autowired
     private UserService userService;
 
+    private List<Integer> elements = new ArrayList<>(Arrays.asList(5, 10, 20, 50));
 
     @GetMapping("/blog")
     public String blog(@RequestParam(required = false) String name,
@@ -92,6 +90,7 @@ public class BlogController {
 
         model.addAttribute("postPage", postPage);
         model.addAttribute("currentPage", currentPage);
+        model.addAttribute("elements", elements);
 
         return "blog";
     }

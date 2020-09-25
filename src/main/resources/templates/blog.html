@@ -35,11 +35,15 @@
 
     <div class="content_">
         <div class="container mt-5">
+
+            <!-- PAGES -->
             <ul class="pagination">
                 <!--<li class="page-item disabled">
                     <span class="page-link">Previous</span>
                 </li>-->
-
+                <li class="page-item">
+                    <span class="page-link">Pages</span>
+                </li>
                 <div th:if="${postPage.totalPages > 0}" class="pagination"
                      th:each="pageNumber : ${pageNumbers}">
                     <li th:class="${pageNumber==postPage.number + 1} ? 'page-item active' : 'page-item'">
@@ -61,11 +65,40 @@
                         </div>
                     </li>
                 </div>
-
-                <!--<li class="page-item">
-                    <a class="page-link" th:href="@{/blog(size=${bookPage.size}, page=${page}+1)}">Next</a>
-                </li>-->
             </ul>
+            <!-- /PAGES -->
+
+            <!-- ELEMENTS -->
+            <div class="align-content-sm-end">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <span class="page-link">Elements</span>
+                    </li>
+
+                    <div class="pagination"
+                         th:each="el : ${elements}">
+                        <li th:class="${el == postPage.size} ? 'page-item active' : 'page-item'">
+
+                        <span th:if="${el == postPage.size} == true"
+                              th:class="page-link" th:text="${el}">
+                        </span>
+
+                            <div th:if="${isSearch} == false">
+                                <a th:if="${el == postPage.size} == false"
+                                   th:href="@{/blog(size=${el}, page=${postPage.number+1})}"
+                                   th:text=${el} class="page-link"></a>
+                            </div>
+
+                            <div th:if="${isSearch} == true">
+                                <a th:if="${el == postPage.size} == false"
+                                   th:href="@{/blog(name=${value}, radiobutton=${radiobutton}, size=${el}, page=${postPage.number+1})}"
+                                   th:text=${el} class="page-link"></a>
+                            </div>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+            <!-- /ELEMENTS -->
 
             <div th:each="post: ${postPage.content}" class="border border-secondary bg-light rounded mt-2">
                 <div class="text-center">
@@ -92,21 +125,6 @@
             </div>
         </div>
     </div>
-
-    <!--<table border="1">
-        <tbody>
-        <tr th:each="book, iStat : ${bookPage.content}">
-            <td th:text="${book.id}" />
-            <td th:text="${book.title}" />
-        </tr>
-        </tbody>
-    </table>
-    <div th:if="${bookPage.totalPages > 0}" class="pagination"
-         th:each="pageNumber : ${pageNumbers}">
-        <a th:href="@{/blog(size=${bookPage.size}, page=${pageNumber})}"
-           th:text=${pageNumber}
-           th:class="${pageNumber==bookPage.number + 1} ? active"></a>
-    </div>-->
 
     <div style="margin-top: 100px"></div>
     <div th:insert="parts/footer :: footer"></div>
