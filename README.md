@@ -1,6 +1,17 @@
 # Blog
 
-Проект является веб-сайтом, написанный с использованием технологий Spring Core, Spring JPA, Spring MVC, Spring Boot, Spring Security.
-Сайт блог - место, где вы можете зарегистрироваться и создавать свои личные или жизненные истории в виде блогов, так же статьи на любые темы.
+This project is a web application, where you can register and create blogs.<br>
+You can write articles, life stories and more.
 
-https://blog-mordyasov-alex.herokuapp.com/home
+[Blog](https://blog-mordyasov-alex.herokuapp.com/home) - click to view
+
+## Getting Started
+Create a database "users" in the postgresql. <br>
+Start the project and go to http://localhost:8080/home
+## Technologies
+- Java
+- Spring Framework: Core, Boot, MVC, JPA, Security
+- Hibernate
+- Postgresql
+- HTML, CSS, JS, Bootstrap, Thymeleaf
+- Maven
